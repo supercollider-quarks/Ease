@@ -201,6 +201,7 @@ EaseOutInCirc : Ease {
 }
 
 //--Bounce
+
 EaseBounce : Ease {	//abstract class
 	*prNew {|t, c, a|
 		^if(t==1, {
@@ -261,7 +262,7 @@ EaseBounce : Ease {	//abstract class
 		]);
 	}
 }
-EaseInBounce : EaseBounce {
+EaseInBounce : EaseBounce {		//a= overshoot
 	*new {|t, a= 1.70158| ^1-super.prNew(1-t, 1, a)}
 	*ar {|t, a= 1.70158|
 		if(t.rate=='audio', {
@@ -272,7 +273,7 @@ EaseInBounce : EaseBounce {
 	}
 	*kr {|t, a= 1.70158| ^1-super.prKr(A2K.kr(1-t), 1, a)}
 }
-EaseOutBounce : EaseBounce {
+EaseOutBounce : EaseBounce {		//a= overshoot
 	*new {|t, a= 1.70158| ^super.prNew(t, 1, a)}
 	*ar {|t, a= 1.70158|
 		if(t.rate=='audio', {
@@ -283,7 +284,7 @@ EaseOutBounce : EaseBounce {
 	}
 	*kr {|t, a= 1.70158| ^super.prKr(A2K.kr(t), 1, a)}
 }
-EaseInOutBounce : EaseBounce {
+EaseInOutBounce : EaseBounce {		//a= overshoot
 	*new {|t, a= 1.70158|
 		^if(t<0.5, {
 			EaseInBounce(2*t, a)/2
@@ -314,7 +315,7 @@ EaseInOutBounce : EaseBounce {
 		);
 	}
 }
-EaseOutInBounce : EaseBounce {
+EaseOutInBounce : EaseBounce {		//a= overshoot
 	*new {|t, a= 1.70158|
 		^if(t<0.5, {
 			super.prNew(t*2, 0.5, a);
@@ -338,25 +339,25 @@ EaseOutInBounce : EaseBounce {
 
 //--Back
 
-EaseInBack : Ease {
-	*new {|t, s= 1.70158| ^t*t*((s+1)*t-s)}
+EaseInBack : Ease {		//a= overshoot
+	*new {|t, a= 1.70158| ^t*t*((a+1)*t-a)}
 }
-EaseOutBack : Ease {
-	*new {|t, s= 1.70158| t= t-1; ^t*t*((s+1)*t+s)+1}
+EaseOutBack : Ease {		//a= overshoot
+	*new {|t, a= 1.70158| t= t-1; ^t*t*((a+1)*t+a)+1}
 }
-EaseInOutBack : Ease {
-	*new {|t, s= 1.70158|
-		var t2, s1, s2; t= t*2; t2= t-2; s1= s*1.525; s2= s*1.525;
-		^if(t<1, 0.5*(t*t*((s1+1)*t-s1)), 0.5*(t2*t2*((s+1)*t2+s)+2));
+EaseInOutBack : Ease {		//a= overshoot
+	*new {|t, a= 1.70158|
+		var t2, a2; t= t*2; t2= t-2; a2= a*1.525;
+		^if(t<1, 0.5*(t*t*((a2+1)*t-a2)), 0.5*(t2*t2*((a2+1)*t2+a2)+2));
 	}
 }
-EaseOutInBack : Ease {
-	*new {|t, s= 1.70158| ^if(t<0.5, EaseOutBack(2*t, s)/2, EaseInBack(2*t-1, s)/2+0.5)}
+EaseOutInBack : Ease {		//a= overshoot
+	*new {|t, a= 1.70158| ^if(t<0.5, EaseOutBack(2*t, a)/2, EaseInBack(2*t-1, a)/2+0.5)}
 }
 
 //--Elastic
 
-EaseInElastic : Ease {
+EaseInElastic : Ease {		//a= amplitude, p= period
 	*prNew {|t, b, c, d, a, p|
 		var t_adj, s;
 		^if(t==0, {
@@ -407,11 +408,11 @@ EaseInElastic : Ease {
 			b
 		]);
 	}
-	*new {|t, amplitude= 1, period= 1| ^this.prNew(t, 0, 1, 1, amplitude, period)}
-	*ar {|t, amplitude= 1, period= 1| ^this.prAr(t, DC.ar(0), 1, 1, amplitude, period)}
-	*kr {|t, amplitude= 1, period= 1| ^this.prKr(t, 0, 1, 1, amplitude, period)}
+	*new {|t, a= 1, p= 1| ^this.prNew(t, 0, 1, 1, a, p)}
+	*ar {|t, a= 1, p= 1| ^this.prAr(t, DC.ar(0), 1, 1, a, p)}
+	*kr {|t, a= 1, p= 1| ^this.prKr(t, 0, 1, 1, a, p)}
 }
-EaseOutElastic : Ease {
+EaseOutElastic : Ease {		//a= amplitude, p= period
 	*prNew {|t, b, c, d, a, p|
 		var s;
 		^if(t==0, {
@@ -454,12 +455,12 @@ EaseOutElastic : Ease {
 			0
 		]);
 	}
-	*new {|t, amplitude= 1, period= 1| ^this.prNew(t, 0, 1, 1, amplitude, period)}
-	*ar {|t, amplitude= 1, period= 1| ^this.prAr(t, 0, DC.ar(1), 1, amplitude, period)}
-	*kr {|t, amplitude= 1, period= 1| ^this.prKr(t, 0, 1, 1, amplitude, period)}
+	*new {|t, a= 1, p= 1| ^this.prNew(t, 0, 1, 1, a, p)}
+	*ar {|t, a= 1, p= 1| ^this.prAr(t, 0, DC.ar(1), 1, a, p)}
+	*kr {|t, a= 1, p= 1| ^this.prKr(t, 0, 1, 1, a, p)}
 }
-EaseInOutElastic : Ease {
-	*new {|t, amplitude= 1, period= 1|
+EaseInOutElastic : Ease {		//a= amplitude, p= period
+	*new {|t, a= 1, p= 1|
 		var s;
 		^if(t==0, {
 			0;
@@ -468,42 +469,42 @@ EaseInOutElastic : Ease {
 			if(t==2, {
 				1;
 			}, {
-				if(amplitude<1, {
-					amplitude= 1;
-					s= period/4;
+				if(a<1, {
+					a= 1;
+					s= p/4;
 				}, {
-					s= period/2pi*asin(1/amplitude);
+					s= p/2pi*asin(1/a);
 				});
 				if(t<1, {
-					-0.5*(amplitude*pow(2, 10*(t-1))*sin((t-1-s)*2pi/period));
+					-0.5*(a*pow(2, 10*(t-1))*sin((t-1-s)*2pi/p));
 				}, {
-					amplitude*pow(2, -10*(t-1))*sin((t-1-s)*2pi/period)*0.5+1;
+					a*pow(2, -10*(t-1))*sin((t-1-s)*2pi/p)*0.5+1;
 				});
 			});
 		});
 	}
-	*ar {|t, amplitude= 1, period= 1|
+	*ar {|t, a= 1, p= 1|
 		var t2= t*DC.ar(2);
-		var a2= amplitude.min(1);
+		var a2= a.min(1);
 		^Select.ar(BinaryOpUGen('==', t, 0), [
 			Select.ar(BinaryOpUGen('==', t2, 2), [
 				if(t2<1,
-					-0.5*(a2*pow(2, 10*(t2-1))*sin((t2-1-(period/2pi*asin(1/a2)))*2pi/period)),
-					a2*pow(2, -10*(t2-1))*sin((t2-1-(period/2pi*asin(1/a2)))*2pi/period)*0.5+1
+					-0.5*(a2*pow(2, 10*(t2-1))*sin((t2-1-(p/2pi*asin(1/a2)))*2pi/p)),
+					a2*pow(2, -10*(t2-1))*sin((t2-1-(p/2pi*asin(1/a2)))*2pi/p)*0.5+1
 				),
 				DC.ar(1)
 			]),
 			DC.ar(0)
 		]);
 	}
-	*kr {|t, amplitude= 1, period= 1|
+	*kr {|t, a= 1, p= 1|
 		var t2= t*2;
-		var a2= amplitude.min(1);
+		var a2= a.min(1);
 		^Select.kr(BinaryOpUGen('==', t, 0), [
 			Select.kr(BinaryOpUGen('==', t2, 2), [
 				if(t2<1,
-					-0.5*(a2*pow(2, 10*(t2-1))*sin((t2-1-(period/2pi*asin(1/a2)))*2pi/period)),
-					a2*pow(2, -10*(t2-1))*sin((t2-1-(period/2pi*asin(1/a2)))*2pi/period)*0.5+1
+					-0.5*(a2*pow(2, 10*(t2-1))*sin((t2-1-(p/2pi*asin(1/a2)))*2pi/p)),
+					a2*pow(2, -10*(t2-1))*sin((t2-1-(p/2pi*asin(1/a2)))*2pi/p)*0.5+1
 				),
 				1
 			]),
@@ -511,25 +512,25 @@ EaseInOutElastic : Ease {
 		]);
 	}
 }
-EaseOutInElastic : Ease {
-	*new {|t, amplitude= 1, period= 1|
+EaseOutInElastic : Ease {		//a= amplitude, p= period
+	*new {|t, a= 1, p= 1|
 		^if(t<0.5, {
-			EaseOutElastic.prNew(t*2, 0, 0.5, 1, amplitude, period);
+			EaseOutElastic.prNew(t*2, 0, 0.5, 1, a, p);
 		}, {
-			EaseInElastic.prNew(2*t-1, 0.5, 0.5, 1, amplitude, period);
+			EaseInElastic.prNew(2*t-1, 0.5, 0.5, 1, a, p);
 		});
 	}
-	*ar {|t, amplitude= 1, period= 1|
+	*ar {|t, a= 1, p= 1|
 		^if(t<0.5,
-			EaseOutElastic.prAr(t*2, 0, DC.ar(0.5), 1, amplitude, period),
-			EaseInElastic.prAr(2*t-1, DC.ar(0.5), DC.ar(0.5), DC.ar(1), amplitude, period)
+			EaseOutElastic.prAr(t*2, 0, DC.ar(0.5), 1, a, p),
+			EaseInElastic.prAr(2*t-1, DC.ar(0.5), DC.ar(0.5), DC.ar(1), a, p)
 		);
 	}
-	*kr {|t, amplitude= 1, period= 1|
+	*kr {|t, a= 1, p= 1|
 		if(t<0.5, {
-			^EaseOutElastic.prKr(t*2, 0, 0.5, 1, amplitude, period);
+			^EaseOutElastic.prKr(t*2, 0, 0.5, 1, a, p);
 		}, {
-			^EaseInElastic.prKr(2*t-1, 0.5, 0.5, 1, amplitude, period);
+			^EaseInElastic.prKr(2*t-1, 0.5, 0.5, 1, a, p);
 		});
 	}
 }
