@@ -46,105 +46,109 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 */
 
 
-
+//see EaseOverview helpfile
 
 
 Ease {	//abstract class
-	*ar {|t ...args| if(t.rate=='audio', {^this.new(t, *args)}, {^this.new(K2A.ar(t), *args)})}
-	*kr {|t ...args| ^this.new(A2K.kr(t), *args)}
+	value {^this.subclassResponsibility(thisMethod)}
+	*value {|t ...args| ^this.new.value(t, *args)}
+	*ar {|t ...args| if(t.rate=='audio', {^this.(t, *args)}, {^this.(K2A.ar(t), *args)})}
+	*kr {|t ...args| ^this.(A2K.kr(t), *args)}
+	signalRange {^\unipolar}
+	//*signalRange {^\unipolar}	//will not work unfortunately
 }
 
 EaseNone : Ease {
-	*new {|t| ^t}
+	value {|t| ^t}
 }
 
 //--Quadratic
 
 EaseInQuad : Ease {
-	*new {|t| ^t*t}
+	value {|t| ^t*t}
 }
 EaseOutQuad : Ease {
-	*new {|t| ^(0-t)*(t-2)}
+	value {|t| ^(0-t)*(t-2)}
 }
 EaseInOutQuad : Ease {
-	*new {|t| t= t*2; ^if(t<1, 0.5*t*t, -0.5*(t-1*(t-3)-1))}
+	value {|t| t= t*2; ^if(t<1, 0.5*t*t, -0.5*(t-1*(t-3)-1))}
 }
 EaseOutInQuad : Ease {
-	*new {|t| ^if(t<0.5, EaseOutQuad(t*2)*0.5, EaseInQuad(2*t-1)*0.5+0.5)}
+	value {|t| ^if(t<0.5, EaseOutQuad.value(t*2)*0.5, EaseInQuad.value(2*t-1)*0.5+0.5)}
 }
 
 //--Cubic
 
 EaseInCubic : Ease {
-	*new {|t| ^t*t*t}
+	value {|t| ^t*t*t}
 }
 EaseOutCubic : Ease {
-	*new {|t| t= t-1; ^(t*t*t)+1}
+	value {|t| t= t-1; ^(t*t*t)+1}
 }
 EaseInOutCubic : Ease {
-	*new {|t| t= t*2; ^if(t<1, 0.5*t*t*t, t= t-2; 0.5*(t*t*t+2))}
+	value {|t| t= t*2; ^if(t<1, 0.5*t*t*t, t= t-2; 0.5*(t*t*t+2))}
 }
 EaseOutInCubic : Ease {
-	*new {|t| ^if(t<0.5, EaseOutCubic(2*t)/2, EaseInCubic(2*t-1)/2+0.5)}
+	value {|t| ^if(t<0.5, EaseOutCubic.value(2*t)/2, EaseInCubic.value(2*t-1)/2+0.5)}
 }
 
 //--Quartic
 
 EaseInQuart : Ease {
-	*new {|t| ^t*t*t*t}
+	value {|t| ^t*t*t*t}
 }
 EaseOutQuart : Ease {
-	*new {|t| t= t-1; ^0-(t*t*t*t-1)}
+	value {|t| t= t-1; ^0-(t*t*t*t-1)}
 }
 EaseInOutQuart : Ease {
-	*new {|t| var t2; t= t*2; t2= t-2; ^if(t<1, 0.5*t*t*t*t, -0.5*(t2*t2*t2*t2-2))}
+	value {|t| var t2; t= t*2; t2= t-2; ^if(t<1, 0.5*t*t*t*t, -0.5*(t2*t2*t2*t2-2))}
 }
 EaseOutInQuart : Ease {
-	*new {|t| ^if(t<0.5, EaseOutQuart(2*t)/2, EaseInQuart(2*t-1)/2+0.5)}
+	value {|t| ^if(t<0.5, EaseOutQuart.value(2*t)/2, EaseInQuart.value(2*t-1)/2+0.5)}
 }
 
 //--Quintic
 
 EaseInQuint : Ease {
-	*new {|t| ^t*t*t*t*t}
+	value {|t| ^t*t*t*t*t}
 }
 EaseOutQuint : Ease {
-	*new {|t| t= t-1; ^t*t*t*t*t+1}
+	value {|t| t= t-1; ^t*t*t*t*t+1}
 }
 EaseInOutQuint : Ease {
-	*new {|t| var t2; t= t*2; t2= t-2; ^if(t<1, 0.5*t*t*t*t*t, 0.5*(t2*t2*t2*t2*t2+2))}
+	value {|t| var t2; t= t*2; t2= t-2; ^if(t<1, 0.5*t*t*t*t*t, 0.5*(t2*t2*t2*t2*t2+2))}
 }
 EaseOutInQuint : Ease {
-	*new {|t| ^if(t<0.5, EaseOutQuint(2*t)/2, EaseInQuint(2*t-1)/2+0.5)}
+	value {|t| ^if(t<0.5, EaseOutQuint.value(2*t)/2, EaseInQuint.value(2*t-1)/2+0.5)}
 }
 
 //--Sine
 
 EaseInSine : Ease {
-	*new {|t| ^0-cos(t*pi/2)+1}
+	value {|t| ^0-cos(t*pi/2)+1}
 }
 EaseOutSine : Ease {
-	*new {|t| ^sin(t*pi/2)}
+	value {|t| ^sin(t*pi/2)}
 }
 EaseInOutSine : Ease {
-	*new {|t| ^-0.5*(cos(pi*t)-1)}
+	value {|t| ^-0.5*(cos(pi*t)-1)}
 }
 EaseOutInSine : Ease {
-	*new {|t| ^if(t<0.5, EaseOutSine(2*t)/2, EaseInSine(2*t-1)/2+0.5)}
+	value {|t| ^if(t<0.5, EaseOutSine.value(2*t)/2, EaseInSine.value(2*t-1)/2+0.5)}
 }
 
 //--Exponential
 
 EaseInExpo : Ease {
-	*new {|t| ^pow(2, 10*(t-1))}
+	value {|t| ^pow(2, 10*(t-1))}
 }
 EaseOutExpo : Ease {
-	*new {|t| ^if(t==1, {1}, {0-pow(2, -10*t)+1})}
+	value {|t| ^if(t==1, {1}, {0-pow(2, -10*t)+1})}
 	*ar {|t| ^Select.ar(BinaryOpUGen('==', t, 1), [DC.ar(0)-pow(2, -10*t)+1, DC.ar(1)])}
 	*kr {|t| ^Select.kr(BinaryOpUGen('==', t, 1), [0-pow(2, -10*t)+1, DC.kr(1)])}
 }
 EaseInOutExpo : Ease {
-	*new {|t|
+	value {|t|
 		^if(t==0, {
 			0;
 		}, {
@@ -182,28 +186,30 @@ EaseInOutExpo : Ease {
 	}
 }
 EaseOutInExpo : Ease {
-	*new {|t| ^if(t<0.5, EaseOutExpo(2*t)/2, EaseInExpo(2*t-1)/2+0.5)}
+	value {|t| ^if(t<0.5, EaseOutExpo.value(2*t)/2, EaseInExpo.value(2*t-1)/2+0.5)}
 }
 
 //--Circular
 
 EaseInCirc : Ease {
-	*new {|t| ^0-(sqrt(1-(t*t))-1)}
+	value {|t| ^0-(sqrt(1-(t*t))-1)}
 }
 EaseOutCirc : Ease {
-	*new {|t| t= t-1; ^sqrt(1-(t*t))}
+	value {|t| t= t-1; ^sqrt(1-(t*t))}
 }
 EaseInOutCirc : Ease {
-	*new {|t| var t2; t= t*2; t2= t-2; ^if(t<1, -0.5*(sqrt(1-(t*t))-1), 0.5*(sqrt(1-(t2*t2))+1))}
+	value {|t| var t2; t= t*2; t2= t-2; ^if(t<1, -0.5*(sqrt(1-(t*t))-1), 0.5*(sqrt(1-(t2*t2))+1))}
 }
 EaseOutInCirc : Ease {
-	*new {|t| ^if(t<0.5, EaseOutCirc(2*t)/2, EaseInCirc(2*t-1)/2+0.5)}
+	value {|t| ^if(t<0.5, EaseOutCirc.value(2*t)/2, EaseInCirc.value(2*t-1)/2+0.5)}
 }
 
 //--Bounce
 
 EaseBounce : Ease {	//abstract class
-	*prNew {|t, c, a|
+	var <>initA;
+	*new {|a= 1.70158| ^super.new.initA_(a)}
+	prValue {|t, c, a|
 		^if(t==1, {
 			c;
 		}, {
@@ -263,7 +269,7 @@ EaseBounce : Ease {	//abstract class
 	}
 }
 EaseInBounce : EaseBounce {		//a= overshoot
-	*new {|t, a= 1.70158| ^1-super.prNew(1-t, 1, a)}
+	value {|t, a| a= a?initA; ^1-super.prValue(1-t, 1, a)}
 	*ar {|t, a= 1.70158|
 		if(t.rate=='audio', {
 			^1-super.prAr(1-t, DC.ar(1), a);
@@ -274,25 +280,26 @@ EaseInBounce : EaseBounce {		//a= overshoot
 	*kr {|t, a= 1.70158| ^1-super.prKr(A2K.kr(1-t), 1, a)}
 }
 EaseOutBounce : EaseBounce {		//a= overshoot
-	*new {|t, a= 1.70158| ^super.prNew(t, 1, a)}
+	value {|t, a| a= a?initA; ^super.prValue(t, 1, a)}
 	*ar {|t, a= 1.70158|
 		if(t.rate=='audio', {
-			^super.prAr(t, DC.ar(1), a)
+			^super.prAr(t, DC.ar(1), a);
 		}, {
-			^super.prAr(K2A.ar(t), DC.ar(1), a)
+			^super.prAr(K2A.ar(t), DC.ar(1), a);
 		});
 	}
 	*kr {|t, a= 1.70158| ^super.prKr(A2K.kr(t), 1, a)}
 }
 EaseInOutBounce : EaseBounce {		//a= overshoot
-	*new {|t, a= 1.70158|
+	value {|t, a|
+		a= a?initA;
 		^if(t<0.5, {
-			EaseInBounce(2*t, a)/2
+			EaseInBounce.value(2*t, a)/2
 		}, {
 			if(t==1, {
 				1;
 			}, {
-				EaseOutBounce(2*t-1, a)/2+0.5;
+				EaseOutBounce.value(2*t-1, a)/2+0.5;
 			});
 		});
 	}
@@ -316,11 +323,12 @@ EaseInOutBounce : EaseBounce {		//a= overshoot
 	}
 }
 EaseOutInBounce : EaseBounce {		//a= overshoot
-	*new {|t, a= 1.70158|
+	value {|t, a|
+		a= a?initA;
 		^if(t<0.5, {
-			super.prNew(t*2, 0.5, a);
+			super.prValue(t*2, 0.5, a);
 		}, {
-			1-super.prNew(2-(2*t), 0.5, a);
+			1-super.prValue(2-(2*t), 0.5, a);
 		});
 	}
 	*ar {|t, a= 1.70158|
@@ -338,27 +346,41 @@ EaseOutInBounce : EaseBounce {		//a= overshoot
 }
 
 //--Back
-
-EaseInBack : Ease {		//a= overshoot
-	*new {|t, a= 1.70158| ^t*t*((a+1)*t-a)}
+EaseBack : Ease {			//abstract class
+	var <>initA;
+	*new {|a= 1.70158| ^super.new.initA_(a)}
 }
-EaseOutBack : Ease {		//a= overshoot
-	*new {|t, a= 1.70158| t= t-1; ^t*t*((a+1)*t+a)+1}
+EaseInBack : EaseBack {		//a= overshoot
+	value {|t, a| a= a?initA; ^t*t*((a+1)*t-a)}
 }
-EaseInOutBack : Ease {		//a= overshoot
-	*new {|t, a= 1.70158|
-		var t2, a2; t= t*2; t2= t-2; a2= a*1.525;
+EaseOutBack : EaseBack {	//a= overshoot
+	value {|t, a| a= a?initA; t= t-1; ^t*t*((a+1)*t+a)+1}
+}
+EaseInOutBack : EaseBack {	//a= overshoot
+	value {|t, a|
+		var t2, a2;
+		a= a?initA;
+		t= t*2;
+		t2= t-2;
+		a2= a*1.525;
 		^if(t<1, 0.5*(t*t*((a2+1)*t-a2)), 0.5*(t2*t2*((a2+1)*t2+a2)+2));
 	}
 }
-EaseOutInBack : Ease {		//a= overshoot
-	*new {|t, a= 1.70158| ^if(t<0.5, EaseOutBack(2*t, a)/2, EaseInBack(2*t-1, a)/2+0.5)}
+EaseOutInBack : EaseBack {	//a= overshoot
+	value {|t, a|
+		a= a?initA;
+		^if(t<0.5, EaseOutBack.value(2*t, a)/2, EaseInBack.value(2*t-1, a)/2+0.5);
+	}
 }
 
 //--Elastic
 
-EaseInElastic : Ease {		//a= amplitude, p= period
-	*prNew {|t, b, c, d, a, p|
+EaseElastic : Ease {		//abstract class
+	var <>initA, <>initP;
+	*new {|a= 1, p= 1| ^super.new.initA_(a).initP_(p)}
+}
+EaseInElastic : EaseElastic {		//a= amplitude, p= period
+	prValue {|t, b, c, d, a, p|
 		var t_adj, s;
 		^if(t==0, {
 			b;
@@ -408,12 +430,12 @@ EaseInElastic : Ease {		//a= amplitude, p= period
 			b
 		]);
 	}
-	*new {|t, a= 1, p= 1| ^this.prNew(t, 0, 1, 1, a, p)}
+	value {|t, a, p| a= a?initA; p= p?initP; ^this.prValue(t, 0, 1, 1, a, p)}
 	*ar {|t, a= 1, p= 1| ^this.prAr(t, DC.ar(0), 1, 1, a, p)}
 	*kr {|t, a= 1, p= 1| ^this.prKr(t, 0, 1, 1, a, p)}
 }
-EaseOutElastic : Ease {		//a= amplitude, p= period
-	*prNew {|t, b, c, d, a, p|
+EaseOutElastic : EaseElastic {		//a= amplitude, p= period
+	prValue {|t, b, c, d, a, p|
 		var s;
 		^if(t==0, {
 			0;
@@ -455,13 +477,15 @@ EaseOutElastic : Ease {		//a= amplitude, p= period
 			0
 		]);
 	}
-	*new {|t, a= 1, p= 1| ^this.prNew(t, 0, 1, 1, a, p)}
+	value {|t, a, p| a= a?initA; p= p?initP; ^this.prValue(t, 0, 1, 1, a, p)}
 	*ar {|t, a= 1, p= 1| ^this.prAr(t, 0, DC.ar(1), 1, a, p)}
 	*kr {|t, a= 1, p= 1| ^this.prKr(t, 0, 1, 1, a, p)}
 }
-EaseInOutElastic : Ease {		//a= amplitude, p= period
-	*new {|t, a= 1, p= 1|
+EaseInOutElastic : EaseElastic {		//a= amplitude, p= period
+	value {|t, a, p|
 		var s;
+		a= a?initA;
+		p= p?initP;
 		^if(t==0, {
 			0;
 		}, {
@@ -512,12 +536,14 @@ EaseInOutElastic : Ease {		//a= amplitude, p= period
 		]);
 	}
 }
-EaseOutInElastic : Ease {		//a= amplitude, p= period
-	*new {|t, a= 1, p= 1|
+EaseOutInElastic : EaseElastic {		//a= amplitude, p= period
+	value {|t, a, p|
+		a= a?initA;
+		p= p?initP;
 		^if(t<0.5, {
-			EaseOutElastic.prNew(t*2, 0, 0.5, 1, a, p);
+			EaseOutElastic.new.prValue(t*2, 0, 0.5, 1, a, p);
 		}, {
-			EaseInElastic.prNew(2*t-1, 0.5, 0.5, 1, a, p);
+			EaseInElastic.new.prValue(2*t-1, 0.5, 0.5, 1, a, p);
 		});
 	}
 	*ar {|t, a= 1, p= 1|
@@ -527,22 +553,24 @@ EaseOutInElastic : Ease {		//a= amplitude, p= period
 		);
 	}
 	*kr {|t, a= 1, p= 1|
-		if(t<0.5, {
-			^EaseOutElastic.prKr(t*2, 0, 0.5, 1, a, p);
-		}, {
-			^EaseInElastic.prKr(2*t-1, 0.5, 0.5, 1, a, p);
-		});
+		^if(t<0.5,
+			EaseOutElastic.prKr(t*2, 0, 0.5, 1, a, p),
+			EaseInElastic.prKr(2*t-1, 0.5, 0.5, 1, a, p)
+		);
 	}
 }
 
 //--Atan
-
-EaseInAtan : Ease {
-	*new {|t, a= 15| var m= atan(a); ^atan((t-1)*a)/m+1}
+EaseAtan : Ease {		//abstract class
+	var <>initA;
+	*new {|a= 15| ^super.new.initA_(a)}
 }
-EaseOutAtan : Ease {
-	*new {|t, a= 15| var m= atan(a); ^atan(t*a)/m}
+EaseInAtan : EaseAtan {
+	value {|t, a| a= a?initA; ^atan((t-1)*a)/atan(a)+1}
 }
-EaseInOutAtan : Ease {
-	*new {|t, a= 15| var m= atan(0.5*a); ^atan((t-0.5)*a)/(2*m)+0.5}
+EaseOutAtan : EaseAtan {
+	value {|t, a| a= a?initA; ^atan(t*a)/atan(a)}
+}
+EaseInOutAtan : EaseAtan {
+	value {|t, a| a= a?initA; ^atan((t-0.5)*a)/(2*atan(0.5*a))+0.5}
 }

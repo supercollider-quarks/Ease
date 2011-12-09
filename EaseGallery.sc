@@ -1,3 +1,7 @@
+/*
+EaseGallery.new
+*/
+
 EaseGallery {
 	*new {
 		var width= 790, height= 732;
@@ -5,9 +9,10 @@ EaseGallery {
 		var gap= 6;
 		var win= Window("EaseGallery", Rect(100, 100, width, height), false).front;
 		var usr= UserView(win, Rect(0, 0, width, height));
-		var drawBox= {|pos, class, arguments= ""|
+		var drawBox= {|pos, class ...arguments|
 			var rect= Rect(0, 0, boxWidth, boxHeight);
 			var arr= Array.fill(boxWidth, {|i| i/(boxWidth-1)});
+			var argStr= "("++"".ccatList(arguments).copyToEnd(2)++")";
 			Pen.use{
 				Pen.translate(pos.x, pos.y);
 				Pen.fillColor= Color.white;			//box background colour
@@ -15,13 +20,12 @@ EaseGallery {
 				Pen.strokeColor= Color.black;		//box border colour
 				Pen.strokeRect(rect);
 				Pen.fillColor= Color.black;
-				Pen.stringCenteredIn(class.name.asString++arguments, rect);
+				Pen.stringCenteredIn(class.name.asString++argStr, rect-Point(0, boxHeight/2));
 				Pen.fillColor= Color.blue;			//data line colour
 				arr.do{|y, x|
-					y= class.new(y);				//easing
-					Pen.addRect(Rect.aboutPoint(Point(x, (1-y)*boxHeight), 1, 1));
+					y= class.value(y, *arguments);	//easing
+					Pen.fillRect(Rect.aboutPoint(Point(x, (1-y)*boxHeight), 1, 1));
 				};
-				Pen.fill;
 			};
 		};
 		usr.background= Color.grey;
@@ -93,38 +97,38 @@ EaseGallery {
 			drawBox.value(pos, EaseOutInCirc);
 			
 			pos= Point(gap, boxHeight+gap*7+gap);
-			drawBox.value(pos, EaseInBounce, "(1.70158)");
+			drawBox.value(pos, EaseInBounce, 1.70158);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutBounce, "(1.70158)");
+			drawBox.value(pos, EaseOutBounce, 1.70158);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseInOutBounce, "(1.70158)");
+			drawBox.value(pos, EaseInOutBounce, 1.70158);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutInBounce, "(1.70158)");
+			drawBox.value(pos, EaseOutInBounce, 1.70158);
 			
 			pos= Point(gap, boxHeight+gap*8+gap);
-			drawBox.value(pos, EaseInBack, "(1.70158)");
+			drawBox.value(pos, EaseInBack, 1.70158);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutBack, "(1.70158)");
+			drawBox.value(pos, EaseOutBack, 1.70158);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseInOutBack, "(1.70158)");
+			drawBox.value(pos, EaseInOutBack, 1.70158);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutInBack, "(1.70158)");
+			drawBox.value(pos, EaseOutInBack, 1.70158);
 			
 			pos= Point(gap, boxHeight+gap*9+gap);
-			drawBox.value(pos, EaseInElastic, "(1, 1)");
+			drawBox.value(pos, EaseInElastic, 1, 1);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutElastic, "(1, 1)");
+			drawBox.value(pos, EaseOutElastic, 1, 1);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseInOutElastic, "(1, 1)");
+			drawBox.value(pos, EaseInOutElastic, 1, 1);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutInElastic, "(1, 1)");
+			drawBox.value(pos, EaseOutInElastic, 1, 1);
 			
 			pos= Point(gap, boxHeight+gap*10+gap);
-			drawBox.value(pos, EaseInAtan, "(15)");
+			drawBox.value(pos, EaseInAtan, 15);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseOutAtan, "(15)");
+			drawBox.value(pos, EaseOutAtan, 15);
 			pos= pos+Point(boxWidth+gap, 0);
-			drawBox.value(pos, EaseInOutAtan, "(15)");
+			drawBox.value(pos, EaseInOutAtan, 15);
 			pos= pos+Point(boxWidth+gap, 0);
 			drawBox.value(pos, EaseNone);
 		};
