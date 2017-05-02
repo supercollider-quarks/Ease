@@ -5,100 +5,95 @@ install it from within supercollider with the command `Quarks.install("Ease")`
 # Ease
 Easing and tweening classes for scserver and sclang. Ported from the Cinder C++ framework - original equations by Robert Penner
 
+**NOTE**: All these expects an input 0-1 as first argument to .value. If you give it out-of-range values the behavior is undefined.
+
 ```supercollider
 EaseGallery.new;
 ```
 
-NOTE::
-All these expects an input 0-1 as first argument to .value. If you give it out-of-range values the behavior is undefined.
-::
-
 ![overview](overview.png?raw=true "overview")
 
-Classes
-==
+## Classes
 
-- EaseNone			easing equation for a simple linear tweening with no easing
+- **EaseNone** - simple linear tweening with no easing
 
-# Quadratic
+### Quadratic
 
-- **EaseInQuad** easing equation for a quadratic (t^2) ease-in, accelerating from zero velocity
-- **EaseOutQuad** easing equation for a quadratic (t^2) ease-out, decelerating to zero velocity
-- **EaseInOutQuad** easing equation for a quadratic (t^2) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInQuad** easing equation for a quadratic (t^2) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInQuad** - quadratic (t^2) ease-in, accelerating from zero velocity
+- **EaseOutQuad** - quadratic (t^2) ease-out, decelerating to zero velocity
+- **EaseInOutQuad** - quadratic (t^2) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInQuad** - quadratic (t^2) ease-out/in, decelerating until halfway, then accelerating
 
-# Cubic
+### Cubic
 
-- **EaseInCubic** easing equation function for a cubic (t^3) ease-in, accelerating from zero velocity
-- **EaseOutCubic** easing equation for a cubic (t^3) ease-out, decelerating to zero velocity
-- **EaseInOutCubic** easing equation for a cubic (t^3) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInCubic** easing equation for a cubic (t^3) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInCubic** - cubic (t^3) ease-in, accelerating from zero velocity
+- **EaseOutCubic** - cubic (t^3) ease-out, decelerating to zero velocity
+- **EaseInOutCubic** - cubic (t^3) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInCubic** - cubic (t^3) ease-out/in, decelerating until halfway, then accelerating
 
-# Quartic
+### Quartic
 
-- **EaseInQuart** easing equation for a quartic (t^4) ease-in, accelerating from zero velocity
-- **EaseOutQuart** easing equation for a quartic (t^4) ease-out, decelerating to zero velocity
-- **EaseInOutQuart** easing equation for a quartic (t^4) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInQuart** easing equation for a quartic (t^4) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInQuart** - quartic (t^4) ease-in, accelerating from zero velocity
+- **EaseOutQuart** - quartic (t^4) ease-out, decelerating to zero velocity
+- **EaseInOutQuart** - quartic (t^4) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInQuart** - quartic (t^4) ease-out/in, decelerating until halfway, then accelerating
 
-# Quintic
+### Quintic
 
-- **EaseInQuint** easing equation function for a quintic (t^5) ease-in, accelerating from zero velocity
-- **EaseOutQuint** easing equation for a quintic (t^5) ease-out, decelerating to zero velocity
-- **EaseInOutQuint** easing equation for a quintic (t^5) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInQuint** easing equation for a quintic (t^5) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInQuint** - quintic (t^5) ease-in, accelerating from zero velocity
+- **EaseOutQuint** - quintic (t^5) ease-out, decelerating to zero velocity
+- **EaseInOutQuint** - quintic (t^5) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInQuint** - quintic (t^5) ease-out/in, decelerating until halfway, then accelerating
 
-# Sine
+### Sine
 
-- **EaseInSine** easing equation for a sinusoidal (sin(t)) ease-in, accelerating from zero velocity
-- **EaseOutSine** easing equation for a sinusoidal (sin(t)) ease-out, decelerating from zero velocity
-- **EaseInOutSine** easing equation for a sinusoidal (sin(t)) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInSine** easing equation for a sinusoidal (sin(t)) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInSine** - sinusoidal (sin(t)) ease-in, accelerating from zero velocity
+- **EaseOutSine** - sinusoidal (sin(t)) ease-out, decelerating from zero velocity
+- **EaseInOutSine** - sinusoidal (sin(t)) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInSine** - sinusoidal (sin(t)) ease-out/in, decelerating until halfway, then accelerating
 
-# Exponential
+### Exponential
 
-- **EaseInExpo** easing equation for an exponential (2^t) ease-in, accelerating from zero velocity
-- **EaseOutExpo** easing equation for an exponential (2^t) ease-out, decelerating from zero velocity
-- **EaseInOutExpo** easing equation for an exponential (2^t) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInExpo** easing equation for an exponential (2^t) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInExpo** - exponential (2^t) ease-in, accelerating from zero velocity
+- **EaseOutExpo** - exponential (2^t) ease-out, decelerating from zero velocity
+- **EaseInOutExpo** - exponential (2^t) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInExpo** - exponential (2^t) ease-out/in, decelerating until halfway, then accelerating
 
-# Circular
+### Circular
 
-- **EaseInCirc** easing equation for a circular (sqrt(1-t^2)) ease-in, accelerating from zero velocity
-- **EaseOutCirc** easing equation for a circular (sqrt(1-t^2)) ease-out, decelerating from zero velocity
-- **EaseInOutCirc** easing equation for a circular (sqrt(1-t^2)) ease-in/out, accelerating until halfway, then decelerating
-- **EaseOutInCirc** easing equation for a circular (sqrt(1-t^2)) ease-out/in, decelerating until halfway, then accelerating
+- **EaseInCirc** - circular (sqrt(1-t^2)) ease-in, accelerating from zero velocity
+- **EaseOutCirc** - circular (sqrt(1-t^2)) ease-out, decelerating from zero velocity
+- **EaseInOutCirc** - circular (sqrt(1-t^2)) ease-in/out, accelerating until halfway, then decelerating
+- **EaseOutInCirc** - circular (sqrt(1-t^2)) ease-out/in, decelerating until halfway, then accelerating
 
-# Bounce
+### Bounce
 
-- **EaseInBounce(a)** easing equation for a bounce (exponentially decaying parabolic bounce) ease-in, accelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
-- **EaseOutBounce(a)** easing equation for a bounce (exponentially decaying parabolic bounce) ease-out, decelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
-- **EaseInOutBounce(a)** easing equation for a bounce (exponentially decaying parabolic bounce) ease-in/out, accelerating until halfway, then decelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
-- **EaseOutInBounce(a)** easing equation for a bounce (exponentially decaying parabolic bounce) ease-out/in, decelerating until halfway, then accelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseInBounce(a)** - bounce (exponentially decaying parabolic bounce) ease-in, accelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseOutBounce(a)** - bounce (exponentially decaying parabolic bounce) ease-out, decelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseInOutBounce(a)** - bounce (exponentially decaying parabolic bounce) ease-in/out, accelerating until halfway, then decelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseOutInBounce(a)** - bounce (exponentially decaying parabolic bounce) ease-out/in, decelerating until halfway, then accelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
 
-# Back
+### Back
 
-- **EaseInBack(a)** easing equation for a back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-in, accelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
-- **EaseOutBack(a)** easing equation for a back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-out, decelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
-- **EaseInOutBack(a)** easing equation for a back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-in/out, accelerating until halfway, then decelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
-- **EaseOutInBack(a)** easing equation for a back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-out/in, decelerating until halfway, then accelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseInBack(a)** - back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-in, accelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseOutBack(a)** - back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-out, decelerating from zero velocity. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseInOutBack(a)** - back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-in/out, accelerating until halfway, then decelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
+- **EaseOutInBack(a)** - back (overshooting cubic easing: (a+1)*t^3 - a*t^2) ease-out/in, decelerating until halfway, then accelerating. the \a parameter controls overshoot, the default producing a 10% overshoot
 
-# Elastic
+### Elastic
 
-- **EaseInElastic(a, p)** easing equation for an elastic (exponentially decaying sine wave) ease-in, accelerating from zero velocity. the \a parameter is amplitude and \p is period.
-- **EaseOutElastic(a, p)** easing equation for an elastic (exponentially decaying sine wave) ease-out, decelerating from zero velocity. the \a parameter is amplitude and \p is period.
-- **EaseInOutElastic(a, p)** easing equation for an elastic (exponentially decaying sine wave) ease-in/out, accelerating until halfway, then decelerating. the \a parameter is amplitude and \p is period.
-- **EaseOutInElastic(a, p)** easing equation for an elastic (exponentially decaying sine wave) ease-out/in, decelerating until halfway, then accelerating. the \a parameter is amplitude and \p is period.
+- **EaseInElastic(a, p)** - elastic (exponentially decaying sine wave) ease-in, accelerating from zero velocity. the \a parameter is amplitude and \p is period.
+- **EaseOutElastic(a, p)** - elastic (exponentially decaying sine wave) ease-out, decelerating from zero velocity. the \a parameter is amplitude and \p is period.
+- **EaseInOutElastic(a, p)** - elastic (exponentially decaying sine wave) ease-in/out, accelerating until halfway, then decelerating. the \a parameter is amplitude and \p is period.
+- **EaseOutInElastic(a, p)** - elastic (exponentially decaying sine wave) ease-out/in, decelerating until halfway, then accelerating. the \a parameter is amplitude and \p is period.
 
-# Atan
+### Atan
 
-- **EaseInAtan(a)** easing equation for an atan ease-in, accelerating from zero velocity. the \a parameter is curvature.
-- **EaseOutAtan(a)** easing equation for an atan ease-out, decelerating from zero velocity. the \a parameter is curvature.
-- **EaseInOutAtan(a)** easing equation for an atan ease-in/out, accelerating until halfway, then decelerating. the \a parameter is curvature.
+- **EaseInAtan(a)** - atan ease-in, accelerating from zero velocity. the \a parameter is curvature.
+- **EaseOutAtan(a)** - atan ease-out, decelerating from zero velocity. the \a parameter is curvature.
+- **EaseInOutAtan(a)** - atan ease-in/out, accelerating until halfway, then decelerating. the \a parameter is curvature.
 
-
-basic usage
-==
+## basic usage
 
 ```supercollider
 e= EaseInAtan(15);
