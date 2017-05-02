@@ -44,7 +44,7 @@ CODE::
 a= EaseOutElastic.new(1, 1)
 a.value(0.5)
 
-{|t| EaseOutElastic.(t/99, 1, 1)}.dup(100).plot2
+{|t| EaseOutElastic.(t/99, 1, 1)}.dup(100).plot
 
 s.boot
 {SinOsc.ar(EaseOutElastic.kr(Line.kr(0, 1, 2, doneAction:2), 1, 1).exprange(500, 1000), 0, 0.1)}.play

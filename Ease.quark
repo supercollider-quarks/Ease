@@ -5,6 +5,6 @@
 	\author:			"redFrik",
 	\helpdoc:			"Ease.html",
 	\url:				"http://www.fredrikolofsson.com/",
-	\version:			1.0,
+	\version:			1.01,
 	\isCompatible:		{Main.versionAtLeast(3, 4)}
 )
