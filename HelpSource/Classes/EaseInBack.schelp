@@ -24,7 +24,7 @@ CODE::
 a= EaseInBack.new(1.70158)
 a.value(0.5)
 
-{|t| EaseInBack.(t/99, 1.70158)}.dup(100).plot2
+{|t| EaseInBack.(t/99, 1.70158)}.dup(100).plot
 
 s.boot
 {SinOsc.ar(EaseInBack.kr(Line.kr(0, 1, 2, doneAction:2), 1.70158).exprange(500, 1000), 0, 0.1)}.play
