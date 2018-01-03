@@ -5,7 +5,9 @@ RELATED:: Overviews/EaseOverview
 
 DESCRIPTION::
 Graphical overview. Run this line...
-EaseGallery.new
+code::EaseGallery.new::
+
+image::EaseGallery_overview.png::
 
 CLASSMETHODS::
 

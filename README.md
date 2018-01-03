@@ -1,17 +1,17 @@
 a [Quark](http://supercollider-quarks.github.io/quarks/) for [SuperCollider](http://supercollider.github.io)
 
-install it from within supercollider with the command `Quarks.install("Ease")`
+install it from within supercollider with the command `Quarks.install("Ease")` and then recompile.
 
 # Ease
 Easing and tweening classes for scserver and sclang. Ported from the Cinder C++ framework - original equations by Robert Penner
 
-**NOTE**: All these expects an input 0-1 as first argument to .value. If you give it out-of-range values the behavior is undefined.
+**NOTE**: All these expects an input 0-1 as first argument to .value. If you give it out-of-range values the behaviour is undefined.
 
 ```supercollider
 EaseGallery.new;
 ```
 
-![overview](overview.png?raw=true "overview")
+![overview](HelpSource/Classes/EaseGallery_overview.png?raw=true "overview")
 
 ## Classes
 
@@ -124,14 +124,18 @@ a.collect{|t| EaseInOutQuad.(t)}.plot;
 
 //--similar in sclang and inside synthdefs
 s.boot
-{SinOsc.ar(EaseInOutExpo.kr(MouseX.kr)*500+500, 0, 0.1)}.play
-a.collect{|x| EaseInOutExpo.(x)}.plot
+a= {SinOsc.ar(EaseInOutExpo.kr(MouseX.kr)*500+500, 0, 0.1)}.play
+a.free
+((0..100)/100).collect{|x| EaseInOutExpo.(x)}.plot
 
 
-//--rates are flexibe when used inside synthdefs
-{SinOsc.ar(EaseInAtan.(SinOsc.kr(1)).linlin(0, 1, 500, 5000), 0, 0.1)}.play	//becomes kr
-{SinOsc.ar(EaseInAtan.kr(SinOsc.ar(1)).linlin(0, 1, 500, 5000), 0, 0.1)}.play	//kr with ar arg
-{SinOsc.ar(EaseInAtan.ar(SinOsc.kr(1)).linlin(0, 1, 500, 5000), 0, 0.1)}.play	//ar with kr arg
+//--rates are flexible when used inside synthdefs
+a= {SinOsc.ar(EaseInAtan.(SinOsc.kr(1)).linlin(0, 1, 500, 5000), 0, 0.1)}.play    //becomes kr
+a.free
+a= {SinOsc.ar(EaseInAtan.kr(SinOsc.ar(1)).linlin(0, 1, 500, 5000), 0, 0.1)}.play    //kr with ar arg
+a.free
+a= {SinOsc.ar(EaseInAtan.ar(SinOsc.kr(1)).linlin(0, 1, 500, 5000), 0, 0.1)}.play    //ar with kr arg
+a.free
 
 
 //--nesting
@@ -143,12 +147,11 @@ a.collect{|t| EaseInAtan.(EaseInAtan.(t))}.plot
 a= (0..100)/100;	//an array with 100 values 0.0-1.0
 e= EaseInAtan(3);
 f= EaseInAtan(30);
-a.collect{|t| [e.(t), f.(t)]}.plot
+a.collect{|t| [e.(t), f.(t)]}.plot(numChannels: 2)
 
 
 //even this works...
 e.(a).plot
-
 
 
 //--use mouse to test
